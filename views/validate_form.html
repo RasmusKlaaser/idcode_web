@@ -1,0 +1,19 @@
+<!doctype html>
+
+<html lang="et">
+    <head>
+        <!--lehe päis-->
+        <meta charset="utf-8">
+        <title>Isikukoodi valideerimine</title>
+    </head>
+    <body>
+    	<b>Sisesta isikukood!</b>
+        <form action="/validate" method="POST">
+            <div>
+                <label for="name">Isikukood</label>
+                <input type="text" class="form control" id="name" placeholder="1234567890" name="idcode">
+            </div>
+            <button type="submit">Valideeri!</button>
+        </form>
+    </body>
+</html>
