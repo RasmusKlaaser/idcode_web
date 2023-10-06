@@ -1,28 +1,40 @@
 const express = require('express')
 const app = express()
 
-// use html view files
+// use ejs files to prepare templates for views
 const path = require('path')
-app.use(express.static(path.join(__dirname, 'views')));
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'));
 
 const parseUrl = require('body-parser');
 let encodeUrl = parseUrl.urlencoded({ extended: true});
 
+let error = null
 app.get('/', (req, res) => {
-	console.log('test')
-	console.log(path.join(__dirname, 'views', 'validate_form.html'))
-  	res.sendFile(path.join(__dirname, 'views', 'validate_form.html'))
+  	res.render('page', {
+		data: null,
+		error: error
+	})
 })
 
 const validId = require('./validate')
 
-
-app.post('/validate', encodeUrl, (req, res) => {
-	console.log('form data validation')
-	console.log(req.body)
-	console.log(req.body.idcode)
-	res.send(validId.idInfo(req.body.idcode))
-})
+app.post('/', encodeUrl, (req, res) => {
+	let error = null
+	if(req.body.idcode === ''){
+		error = 'Palun sisesta vormis andmed'
+	} else if(req.body.idcode.length < 11) {
+		error = 'Palun sisesta korrektne isikukood'
+	}
+	if(error === null){
+		res.render('page', {
+			data: validId.idInfo(req.body.idcode),
+			error: null
+		})
+	}	else{
+			res.render('page', {data: null, error: error})
+		}  
+	})	
 
 app.listen(3000, () => {
   console.log('Example app is started at http://localhost:3000')

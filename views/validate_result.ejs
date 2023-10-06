@@ -1,0 +1,11 @@
+<%- include('header'); %>
+
+    <div class="container">
+      <h2>Isikoodi valideerimine</h2>
+        <p>
+            Isik isikukoodiga <%= idcode %>  <%= sex_description %> (<%= sex_number %>...), kes on sündinud <%= birthdayString %> (...<%= year %><%= month %><%= day %>...). Tema isikukood registreeriti <%= register_place %> ja sel päeval oli ta <%= order_number %>. <%= sex_control %>soost isik (...<%= addition_info %>.). Isikukoodi kontrollnumbriks on <%= idcode_control_number %> (...<%= idControl %>).
+        </p>
+        <a href="/">Valideeri uus isikukood</a>
+    </div>
+
+<%- include('footer'); %>
